@@ -31,10 +31,9 @@ type Oscillator struct {
 
 // Configure modifies the LSE state, waiting for completion
 func (o *Oscillator) Configure(cfg *Config) {
-
 	// Apply power to peripheral clock, if needed
-	powerState := (o.Attributes.ClockEnableRegister.Get() & o.Attributes.ClockEnableFlag) == 0
-	if !powerState {
+	powerStateOff := (o.Attributes.ClockEnableRegister.Get() & o.Attributes.ClockEnableFlag) == 0
+	if powerStateOff {
 		o.Attributes.ClockEnableRegister.SetBits(o.Attributes.ClockEnableFlag)
 		_ = o.Attributes.ClockEnableRegister.Get()
 	}
@@ -71,7 +70,7 @@ func (o *Oscillator) Configure(cfg *Config) {
 	//}
 
 	// Power down peripheral clock again, if was not already powered up
-	if !powerState {
+	if powerStateOff {
 		o.Attributes.ClockEnableRegister.ClearBits(o.Attributes.ClockEnableFlag)
 	}
 }
