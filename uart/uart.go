@@ -60,7 +60,12 @@ func (uart *UART) handleInterrupt(interrupt.Interrupt) {
 
 // SetBaudRate sets the communication speed for the UART
 func (uart *UART) SetBaudRate(br uint32) {
-	divider := uint32(uart.Clock.Frequency() / int64(br))
+	mult := uart.Attributes.BaudMultiplier
+	if mult == 0 {
+		mult = 1
+	}
+
+	divider := mult * uint32(uart.Clock.Frequency()/int64(br))
 	uart.BRR.Set(divider)
 }
 

@@ -20,6 +20,10 @@ type Attributes struct {
 	RxPinAltFunc uint8
 	RxReg        *volatile.Register32
 
+	// Some chips have a fixed multiplier on the baud rate configured
+	// into the BRR register.  Default is multiplier of 1)
+	BaudMultiplier uint32
+
 	StatusReg         *volatile.Register32
 	StatusTxEmptyFlag uint32
 

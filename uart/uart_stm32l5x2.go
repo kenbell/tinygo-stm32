@@ -23,6 +23,7 @@ var (
 			RxPin:             8,
 			RxPinAltFunc:      8,
 			RxReg:             &stm32.LPUART1.RDR,
+			BaudMultiplier:    256,
 			StatusReg:         &stm32.LPUART1.ISR,
 			StatusTxEmptyFlag: stm32.USART_ISR_TXE,
 			Clock: clock.PeripheralConfig{
