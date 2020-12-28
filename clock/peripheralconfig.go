@@ -27,10 +27,12 @@ func (c *PeripheralConfig) Apply(src Source) PeripheralClock {
 	}
 
 	// Select the desired source clock
-	val := c.selectValue(src)
-	reg := c.SelectRegister
-	msk := c.SelectMask
-	reg.ReplaceBits(val, msk, 0)
+	if c.SelectRegister != nil && len(c.SelectValues) > 0 {
+		val := c.selectValue(src)
+		reg := c.SelectRegister
+		msk := c.SelectMask
+		reg.ReplaceBits(val, msk, 0)
+	}
 
 	// Return the clock object
 	return FromType(src)
