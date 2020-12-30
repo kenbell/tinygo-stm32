@@ -60,7 +60,7 @@ var (
 			},
 		},
 		Clock:        clock.PCLK1,
-		NewInterrupt: newIRQ_TIM2_4Handler,
+		NewInterrupt: newIRQ_TIM4Handler,
 	}
 
 	TIM5 = &Timer{
@@ -73,7 +73,7 @@ var (
 			},
 		},
 		Clock:        clock.PCLK1,
-		NewInterrupt: newIRQ_TIM2_5Handler,
+		NewInterrupt: newIRQ_TIM5Handler,
 	}
 
 	TIM6 = &Timer{
@@ -86,7 +86,7 @@ var (
 			},
 		},
 		Clock:        clock.PCLK1,
-		NewInterrupt: newIRQ_TIM2_6Handler,
+		NewInterrupt: newIRQ_TIM6Handler,
 	}
 
 	TIM7 = &Timer{
@@ -99,7 +99,7 @@ var (
 			},
 		},
 		Clock:        clock.PCLK1,
-		NewInterrupt: newIRQ_TIM2_7Handler,
+		NewInterrupt: newIRQ_TIM7Handler,
 	}
 
 	TIM8 = &Timer{
@@ -158,11 +158,11 @@ var (
 var (
 	chainIRQ_TIM1_UP nvic.HandlerChain
 	chainIRQ_TIM2    nvic.HandlerChain
-	chainIRQ_TIM2_3  nvic.HandlerChain
-	chainIRQ_TIM2_4  nvic.HandlerChain
-	chainIRQ_TIM2_5  nvic.HandlerChain
-	chainIRQ_TIM2_6  nvic.HandlerChain
-	chainIRQ_TIM2_7  nvic.HandlerChain
+	chainIRQ_TIM3    nvic.HandlerChain
+	chainIRQ_TIM4    nvic.HandlerChain
+	chainIRQ_TIM5    nvic.HandlerChain
+	chainIRQ_TIM6    nvic.HandlerChain
+	chainIRQ_TIM7    nvic.HandlerChain
 	chainIRQ_TIM8_UP nvic.HandlerChain
 	chainIRQ_TIM15   nvic.HandlerChain
 	chainIRQ_TIM16   nvic.HandlerChain
@@ -194,63 +194,63 @@ func handleIRQ_TIM2Interrupt(intr interrupt.Interrupt) {
 }
 
 func newIRQ_TIM2_3Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
-	if chainIRQ_TIM2_3.Register(h) {
+	if chainIRQ_TIM3.Register(h) {
 		return nil
 	}
-	intr := interrupt.New(stm32.IRQ_TIM2_3, handleIRQ_TIM2_3Interrupt)
+	intr := interrupt.New(stm32.IRQ_TIM3, handleIRQ_TIM3Interrupt)
 	return &intr
 }
 
-func handleIRQ_TIM2_3Interrupt(intr interrupt.Interrupt) {
-	chainIRQ_TIM2_3.Call(intr)
+func handleIRQ_TIM3Interrupt(intr interrupt.Interrupt) {
+	chainIRQ_TIM3.Call(intr)
 }
 
-func newIRQ_TIM2_4Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
-	if chainIRQ_TIM2_4.Register(h) {
+func newIRQ_TIM4Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
+	if chainIRQ_TIM4.Register(h) {
 		return nil
 	}
-	intr := interrupt.New(stm32.IRQ_TIM2_4, handleIRQ_TIM2_4Interrupt)
+	intr := interrupt.New(stm32.IRQ_TIM4, handleIRQ_TIM4Interrupt)
 	return &intr
 }
 
-func handleIRQ_TIM2_4Interrupt(intr interrupt.Interrupt) {
-	chainIRQ_TIM2_4.Call(intr)
+func handleIRQ_TIM4Interrupt(intr interrupt.Interrupt) {
+	chainIRQ_TIM4.Call(intr)
 }
 
-func newIRQ_TIM2_5Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
-	if chainIRQ_TIM2_5.Register(h) {
+func newIRQ_TIM5Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
+	if chainIRQ_TIM5.Register(h) {
 		return nil
 	}
-	intr := interrupt.New(stm32.IRQ_TIM2_5, handleIRQ_TIM2_5Interrupt)
+	intr := interrupt.New(stm32.IRQ_TIM5, handleIRQ_TIM5Interrupt)
 	return &intr
 }
 
-func handleIRQ_TIM2_5Interrupt(intr interrupt.Interrupt) {
-	chainIRQ_TIM2_5.Call(intr)
+func handleIRQ_TIM5Interrupt(intr interrupt.Interrupt) {
+	chainIRQ_TIM5.Call(intr)
 }
 
-func newIRQ_TIM2_6Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
-	if chainIRQ_TIM2_6.Register(h) {
+func newIRQ_TIM6Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
+	if chainIRQ_TIM6.Register(h) {
 		return nil
 	}
-	intr := interrupt.New(stm32.IRQ_TIM2_6, handleIRQ_TIM2_6Interrupt)
+	intr := interrupt.New(stm32.IRQ_TIM6, handleIRQ_TIM6Interrupt)
 	return &intr
 }
 
-func handleIRQ_TIM2_6Interrupt(intr interrupt.Interrupt) {
-	chainIRQ_TIM2_6.Call(intr)
+func handleIRQ_TIM6Interrupt(intr interrupt.Interrupt) {
+	chainIRQ_TIM6.Call(intr)
 }
 
-func newIRQ_TIM2_7Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
-	if chainIRQ_TIM2_7.Register(h) {
+func newIRQ_TIM7Handler(h nvic.InterruptHandler) *interrupt.Interrupt {
+	if chainIRQ_TIM7.Register(h) {
 		return nil
 	}
-	intr := interrupt.New(stm32.IRQ_TIM2_7, handleIRQ_TIM2_7Interrupt)
+	intr := interrupt.New(stm32.IRQ_TIM7, handleIRQ_TIM7Interrupt)
 	return &intr
 }
 
-func handleIRQ_TIM2_7Interrupt(intr interrupt.Interrupt) {
-	chainIRQ_TIM2_7.Call(intr)
+func handleIRQ_TIM7Interrupt(intr interrupt.Interrupt) {
+	chainIRQ_TIM7.Call(intr)
 }
 
 func newIRQ_TIM8_UPHandler(h nvic.InterruptHandler) *interrupt.Interrupt {

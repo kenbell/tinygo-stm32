@@ -49,9 +49,9 @@ func (c Config) Apply() {
 	stm32.RCC.PLLCFGR.Set(0x20000000 |
 		uint32(c.Source) |
 		c.M |
-		(c.N << stm32.RCC_PLLCFGR_PLLN0_Pos) |
-		(((c.P >> 1) - 1) << stm32.RCC_PLLCFGR_PLLP0_Pos) |
-		(c.Q << stm32.RCC_PLLCFGR_PLLQ0_Pos))
+		(c.N << stm32.RCC_PLLCFGR_PLLN_Pos) |
+		(((c.P >> 1) - 1) << stm32.RCC_PLLCFGR_PLLP_Pos) |
+		(c.Q << stm32.RCC_PLLCFGR_PLLQ_Pos))
 
 	// Enable the PLL, wait until ready
 	stm32.RCC.CR.SetBits(stm32.RCC_CR_PLLON)

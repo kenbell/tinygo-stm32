@@ -40,9 +40,5 @@ const (
 
 // Work-around SVD definitions to create useful constants
 const (
-	stm32_RCC_CFGR_SW_Msk  = stm32.RCC_CFGR_SW0_Msk | stm32.RCC_CFGR_SW1_Msk
-	stm32_RCC_CFGR_SWS_Msk = stm32.RCC_CFGR_SWS0_Msk | stm32.RCC_CFGR_SWS1_Msk
-	stm32_RCC_CFGR_SWS_Pos = stm32.RCC_CFGR_SWS0_Pos
-
 	stm32_FLASH_ACR_LATENCY_Msk = stm32.FLASH_ACR_LATENCY_Msk
 )

@@ -32,11 +32,11 @@ var (
 				SelectRegister: &stm32.RCC.DCKCFGR2,
 				SelectValues: map[clock.Source]uint32{
 					clock.SourcePCLK1:  0,
-					clock.SourceSYSCLK: 1 << stm32.RCC_DCKCFGR2_UART3SEL_Pos,
-					clock.SourceHSI:    2 << stm32.RCC_DCKCFGR2_UART3SEL_Pos,
-					clock.SourceLSE:    3 << stm32.RCC_DCKCFGR2_UART3SEL_Pos,
+					clock.SourceSYSCLK: 1 << stm32.RCC_DCKCFGR2_USART3SEL_Pos,
+					clock.SourceHSI:    2 << stm32.RCC_DCKCFGR2_USART3SEL_Pos,
+					clock.SourceLSE:    3 << stm32.RCC_DCKCFGR2_USART3SEL_Pos,
 				},
-				SelectMask: stm32.RCC_DCKCFGR2_UART3SEL_Msk,
+				SelectMask: stm32.RCC_DCKCFGR2_USART3SEL_Msk,
 			},
 		},
 		NewInterrupt: func(h nvic.InterruptHandler) interrupt.Interrupt {

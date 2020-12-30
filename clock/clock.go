@@ -52,8 +52,8 @@ func (c Config) Apply(flashLatency uint32) {
 
 	if c.Types&TypeSYSCLK == TypeSYSCLK {
 		src := uint32(c.SYSCLKSource)
-		stm32.RCC.CFGR.ReplaceBits(src, stm32_RCC_CFGR_SW_Msk, 0)
-		for stm32.RCC.CFGR.Get()&stm32_RCC_CFGR_SWS_Msk != src<<stm32_RCC_CFGR_SWS_Pos {
+		stm32.RCC.CFGR.ReplaceBits(src, stm32.RCC_CFGR_SW_Msk, 0)
+		for stm32.RCC.CFGR.Get()&stm32.RCC_CFGR_SWS_Msk != src<<stm32.RCC_CFGR_SWS_Pos {
 		}
 	}
 
