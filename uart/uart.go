@@ -49,6 +49,29 @@ func (uart *UART) Configure(config Config) {
 	intr.Enable()
 }
 
+// SetReceiveCallback sets the callback to be invoked when a byte is received
+// from the UART.
+//
+// This function signature is chosen to be identical to machine.GenericUART in
+// tinygo to enable this UART to be used as an implementation of the tinygo
+// UART.
+func (uart *UART) SetReceiveCallback(fn func (b byte)) {
+	uart.Receive = fn
+}
+
+// WriteByte writes a byte of data to the UART.
+//
+// This function signature is chosen to be identical to machine.GenericUART in
+// tinygo to enable this UART to be used as an implementation of the tinygo
+// UART.
+func (uart *UART) WriteByte(c byte) error {
+	uart.Attributes.TxReg.Set(uint32(c))
+
+	for !uart.Attributes.StatusReg.HasBits(uart.Attributes.StatusTxEmptyFlag) {
+	}
+	return nil
+}
+
 // handleInterrupt should be called from the appropriate interrupt handler for
 // this UART instance
 func (uart *UART) handleInterrupt(interrupt.Interrupt) {
@@ -67,15 +90,6 @@ func (uart *UART) SetBaudRate(br uint32) {
 
 	divider := mult * uint32(uart.Clock.Frequency()/int64(br))
 	uart.BRR.Set(divider)
-}
-
-// WriteByte writes a byte of data to the UART.
-func (uart *UART) WriteByte(c byte) error {
-	uart.Attributes.TxReg.Set(uint32(c))
-
-	for !uart.Attributes.StatusReg.HasBits(uart.Attributes.StatusTxEmptyFlag) {
-	}
-	return nil
 }
 
 func (uart *UART) configClock(src clock.Source) {
