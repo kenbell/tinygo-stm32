@@ -12,7 +12,7 @@ import (
 	"github.com/kenbell/tinygo-stm32/uart"
 )
 
-const tickDebug = true
+const tickDebug = false
 
 const TICK_RATE = 1000 // 1 KHz
 const TICKS_PER_NS = 1000000000 / TICK_RATE
@@ -113,7 +113,7 @@ func (b *BasicBoard) initTickTimer(t *timer.Timer) {
 	b.tickTimer = t
 
 	if tickDebug {
-		machine.PB7.Configure(machine.PinConfig{Mode: machine.PinOutput})
+		machine.LED.Configure(machine.PinConfig{Mode: machine.PinOutput})
 	}
 
 	// Repeating timer, with prescale and period calculated
@@ -150,7 +150,7 @@ func (b *BasicBoard) handleTick(interrupt.Interrupt) {
 		// 1Hz LED flash
 		if tickDebug && c%500 == 0 {
 			debugLEDState = !debugLEDState
-			machine.PB7.Set(debugLEDState)
+			machine.LED.Set(debugLEDState)
 		}
 
 		tickCount.Set(c + 1)
