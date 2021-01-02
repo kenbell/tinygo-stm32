@@ -31,6 +31,13 @@ type Oscillator struct {
 
 // Configure modifies the LSE state, waiting for completion
 func (o *Oscillator) Configure(cfg *Config) {
+	// Use default frequency if not overridden
+	if cfg.Frequency != 0 {
+		o.ClockFrequency = cfg.Frequency
+	} else {
+		o.ClockFrequency = o.Attributes.DefaultFrequency
+	}
+
 	// Apply power to peripheral clock, if needed
 	powerStateOff := (o.Attributes.ClockEnableRegister.Get() & o.Attributes.ClockEnableFlag) == 0
 	if powerStateOff {

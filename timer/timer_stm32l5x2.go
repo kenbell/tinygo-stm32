@@ -20,7 +20,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM1EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM1_UPHandler,
 	}
 
@@ -33,7 +33,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR1_TIM2EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM2Handler,
 	}
 
@@ -46,7 +46,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR1_TIM3EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM2_3Handler,
 	}
 
@@ -59,7 +59,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR1_TIM4EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM4Handler,
 	}
 
@@ -72,7 +72,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR1_TIM5EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM5Handler,
 	}
 
@@ -85,7 +85,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR1_TIM6EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM6Handler,
 	}
 
@@ -98,7 +98,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR1_TIM7EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM7Handler,
 	}
 
@@ -111,7 +111,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM8EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM8_UPHandler,
 	}
 
@@ -124,7 +124,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM15EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM15Handler,
 	}
 
@@ -137,7 +137,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM16EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM16Handler,
 	}
 
@@ -150,7 +150,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM17EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM17Handler,
 	}
 )

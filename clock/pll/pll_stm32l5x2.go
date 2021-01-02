@@ -2,10 +2,16 @@
 
 package pll
 
-import "device/stm32"
+import (
+	"device/stm32"
+
+	"github.com/kenbell/tinygo-stm32/clock/hse"
+	"github.com/kenbell/tinygo-stm32/clock/hsi"
+	"github.com/kenbell/tinygo-stm32/clock/msi"
+)
 
 var (
-	PLL1 = &PLL{}
+	PLL1 = PLL{}
 )
 
 // Source indicates the PLL source
@@ -43,9 +49,12 @@ const (
 )
 
 // Apply modifies the PLL state, waiting for completion
-func (c Config) Apply() {
+//
+// The new PLLCLK frequency is returned, which is the clock
+// available as an input to SYSCLK.
+func (c *Config) Apply() int64 {
 	if c.State == StateNone {
-		return
+		return 0
 	}
 
 	// Disable the PLL, wait until reset
@@ -64,7 +73,7 @@ func (c Config) Apply() {
 		for stm32.RCC.CR.HasBits(stm32.RCC_CR_PLLRDY) {
 		}
 
-		return
+		return 0
 	}
 
 	// Configure the PLL
@@ -84,4 +93,20 @@ func (c Config) Apply() {
 	stm32.RCC.PLLCFGR.SetBits(stm32.RCC_PLLCFGR_PLLREN) // = RCC_PLL_SYSCLK
 	for !stm32.RCC.CR.HasBits(stm32.RCC_CR_PLLRDY) {
 	}
+
+	return c.calcPLLCLK()
+}
+
+func (c *Config) calcPLLCLK() int64 {
+	var baseFreq int64
+	switch c.Source {
+	case SourceMSI:
+		baseFreq = msi.MSI.Frequency()
+	case SourceHSI:
+		baseFreq = hsi.HSI.Frequency()
+	case SourceHSE:
+		baseFreq = hse.HSE.Frequency()
+	}
+
+	return ((baseFreq / int64(c.M)) * int64(c.N)) / int64(c.R)
 }

@@ -19,19 +19,19 @@ const (
 )
 
 var (
-	PCLK1  = &BaseClock{ClockTimerMultiplier: 2}
-	PCLK2  = &BaseClock{ClockTimerMultiplier: 2}
-	SYSCLK = &BaseClock{ClockTimerMultiplier: 1}
-	HCLK   = &BaseClock{ClockTimerMultiplier: 1}
-	HSI    = hsi.HSI
-	LSI    = lsi.LSI
-	LSE    = lse.LSE
+	SYSCLK = BaseClock{ClockTimerMultiplier: 1}
+	HCLK   = BaseClock{ClockTimerMultiplier: 1}
+	PCLK1  = BaseClock{ClockTimerMultiplier: 2}
+	PCLK2  = BaseClock{ClockTimerMultiplier: 2}
+	HSI    = &hsi.HSI
+	LSI    = &lsi.LSI
+	LSE    = &lse.LSE
 )
 
 var clocks = map[Source]PeripheralClock{
-	SourcePCLK1:  PCLK1,
-	SourcePCLK2:  PCLK2,
-	SourceSYSCLK: SYSCLK,
+	SourcePCLK1:  &PCLK1,
+	SourcePCLK2:  &PCLK2,
+	SourceSYSCLK: &SYSCLK,
 	SourceHSI:    HSI,
 	SourceLSE:    LSE,
 	SourceLSI:    LSI,

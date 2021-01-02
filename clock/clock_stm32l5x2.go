@@ -43,3 +43,60 @@ const (
 const (
 	stm32_FLASH_ACR_LATENCY_Msk = stm32.Flash_ACR_LATENCY_Msk
 )
+
+func sysclkFromSource(src SYSCLKSource) PeripheralClock {
+	switch src {
+	case SYSCLKSourceMSI:
+		return MSI
+	case SYSCLKSourceHSE:
+		return HSE
+	case SYSCLKSourceHSI:
+		return HSI
+	case SYSCLKSourcePLL:
+		return PLL
+	}
+
+	return nil
+}
+
+func hclkDividerFactor(div HPREDivider) uint32 {
+	switch div {
+	case HPREDividerDiv1:
+		return 1
+	case HPREDividerDiv2:
+		return 2
+	case HPREDividerDiv4:
+		return 4
+	case HPREDividerDiv8:
+		return 8
+	case HPREDividerDiv16:
+		return 16
+	case HPREDividerDiv64:
+		return 64
+	case HPREDividerDiv128:
+		return 128
+	case HPREDividerDiv256:
+		return 256
+	case HPREDividerDiv512:
+		return 512
+	}
+
+	return 0
+}
+
+func pclkDividerFactor(div PPREDivider) uint32 {
+	switch div {
+	case PPREDividerDiv1:
+		return 1
+	case PPREDividerDiv2:
+		return 2
+	case PPREDividerDiv4:
+		return 4
+	case PPREDividerDiv8:
+		return 8
+	case PPREDividerDiv16:
+		return 16
+	}
+
+	return 0
+}

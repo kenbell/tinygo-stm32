@@ -47,6 +47,6 @@ func (c OscillatorConfig) Apply() {
 	}
 
 	if c.PLL != nil {
-		c.PLL.Apply()
+		PLL.Configure(c.PLL)
 	}
 }

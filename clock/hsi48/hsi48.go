@@ -25,7 +25,7 @@ type Oscillator struct {
 
 var (
 	// HSI48 gives public access to the oscillator
-	HSI48 = &Oscillator{}
+	HSI48 = Oscillator{}
 )
 
 // Configure the oscillator,, waiting for completion

@@ -2,10 +2,15 @@
 
 package pll
 
-import "device/stm32"
+import (
+	"device/stm32"
+
+	"github.com/kenbell/tinygo-stm32/clock/hse"
+	"github.com/kenbell/tinygo-stm32/clock/hsi"
+)
 
 var (
-	PLL1 = &PLL{}
+	PLL1 = PLL{}
 )
 
 // Source indicates the PLL source
@@ -30,9 +35,9 @@ type Config struct {
 }
 
 // Apply modifies the PLL state, waiting for completion
-func (c Config) Apply() {
+func (c *Config) Apply() int64 {
 	if c.State == StateNone {
-		return
+		return 0
 	}
 
 	// Disable the PLL, wait until reset
@@ -42,7 +47,7 @@ func (c Config) Apply() {
 
 	// If turning off, we're done
 	if c.State == StateOff {
-		return
+		return 0
 	}
 
 	// Configure the PLL
@@ -57,4 +62,15 @@ func (c Config) Apply() {
 	stm32.RCC.CR.SetBits(stm32.RCC_CR_PLLON)
 	for !stm32.RCC.CR.HasBits(stm32.RCC_CR_PLLRDY) {
 	}
+
+	return c.calcPLLCLK()
+}
+
+func (c *Config) calcPLLCLK() int64 {
+	baseFreq := hsi.HSI.Frequency()
+	if c.Source == SourceHSE {
+		baseFreq = hse.HSE.Frequency()
+	}
+
+	return ((baseFreq / int64(c.M)) * int64(c.N)) / int64(c.P)
 }

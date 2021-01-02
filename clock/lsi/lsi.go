@@ -21,15 +21,15 @@ type Config struct {
 // Oscillator represents an LSE oscillator
 type Oscillator struct {
 	Attributes Attributes
-}
 
-var (
-	// LSI gives public access to the oscillator
-	LSI = &Oscillator{}
-)
+	ClockFrequency int64
+}
 
 // Configure modifies the LSI state, waiting for completion
 func (o *Oscillator) Configure(cfg *Config) {
+
+	o.ClockFrequency = o.Attributes.DefaultFrequency
+
 	if cfg.State == StateOn {
 		stm32.RCC.CSR.SetBits(stm32.RCC_CSR_LSION)
 
@@ -46,7 +46,7 @@ func (o *Oscillator) Configure(cfg *Config) {
 }
 
 func (o *Oscillator) Frequency() int64 {
-	return o.Frequency()
+	return o.ClockFrequency
 }
 
 func (o *Oscillator) TimerMultiplier() uint32 {

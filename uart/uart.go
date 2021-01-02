@@ -25,7 +25,7 @@ type UART struct {
 }
 
 // Configure the UART.
-func (uart *UART) Configure(config Config) {
+func (uart *UART) Configure(config *Config) {
 	// Default baud rate to 115200.
 	if config.BaudRate == 0 {
 		config.BaudRate = 115200
@@ -55,7 +55,7 @@ func (uart *UART) Configure(config Config) {
 // This function signature is chosen to be identical to machine.GenericUART in
 // tinygo to enable this UART to be used as an implementation of the tinygo
 // UART.
-func (uart *UART) SetReceiveCallback(fn func (b byte)) {
+func (uart *UART) SetReceiveCallback(fn func(b byte)) {
 	uart.Receive = fn
 }
 

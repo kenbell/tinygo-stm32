@@ -13,19 +13,6 @@ const (
 	StateOn State = stm32.RCC_CR_HSION
 )
 
-const (
-	// CalibrationValueDefault is the default HSI calibration value
-	CalibrationValueDefault = 0x10
-
-	// CalibrationValueMax is the maximum calibration value
-	CalibrationValueMax = 0x1F
-)
-
-var (
-	// HSI gives public access to the oscillator
-	HSI = &Oscillator{}
-)
-
 // Config is the configuration of the LSE oscillator
 type Config struct {
 	State State
@@ -43,6 +30,9 @@ type Oscillator struct {
 
 // Configure modifies the HSI state, waiting for completion
 func (o *Oscillator) Configure(cfg *Config) {
+
+	o.ClockFrequency = o.Attributes.DefaultFrequency
+
 	if cfg.State == StateOn {
 		stm32.RCC.CR.SetBits(stm32.RCC_CR_HSION)
 
@@ -59,7 +49,7 @@ func (o *Oscillator) Configure(cfg *Config) {
 }
 
 func (o *Oscillator) Frequency() int64 {
-	return o.Frequency()
+	return o.ClockFrequency
 }
 
 func (o *Oscillator) TimerMultiplier() uint32 {

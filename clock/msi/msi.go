@@ -13,21 +13,16 @@ const (
 	StateOn State = stm32.RCC_CR_HSION
 )
 
-const (
-	// CalibrationValueDefault is the default HSI calibration value
-	CalibrationValueDefault = 0x0
-)
-
 var (
 	// MSI gives public access to the oscillator
-	MSI = &Oscillator{}
+	MSI = Oscillator{}
 )
 
-// Config is the configuration of the LSE oscillator
+// Config is the configuration of the MSI oscillator
 type Config struct {
 	State State
 
-	// CalibrationValue indicates the calibration value of the High Speed Internal oscillator
+	// CalibrationValue indicates the calibration value of the Medium Speed Internal oscillator
 	CalibrationValue uint32
 
 	// ClockRange indicates the range for the MSI clock
@@ -43,6 +38,9 @@ type Oscillator struct {
 
 // Configure modifies the HSI state, waiting for completion
 func (o *Oscillator) Configure(cfg *Config) {
+
+	o.ClockFrequency = rangeToFreq(cfg.ClockRange)
+
 	if cfg.State == StateOn {
 		stm32.RCC.CR.SetBits(stm32.RCC_CR_MSION)
 
@@ -62,7 +60,7 @@ func (o *Oscillator) Configure(cfg *Config) {
 }
 
 func (o *Oscillator) Frequency() int64 {
-	return o.Frequency()
+	return o.ClockFrequency
 }
 
 func (o *Oscillator) TimerMultiplier() uint32 {

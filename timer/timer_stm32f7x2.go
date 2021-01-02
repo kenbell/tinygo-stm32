@@ -20,7 +20,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM1EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM1_UP_TIM10Handler,
 	}
 
@@ -33,7 +33,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM2EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM2Handler,
 	}
 
@@ -46,7 +46,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM3EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM3Handler,
 	}
 
@@ -59,7 +59,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM4EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM4Handler,
 	}
 
@@ -72,7 +72,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM5EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM5Handler,
 	}
 
@@ -85,7 +85,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM6EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM6_DACHandler,
 	}
 
@@ -98,7 +98,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM7EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM7Handler,
 	}
 
@@ -111,7 +111,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM8EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM8_UP_TIM13Handler,
 	}
 
@@ -124,7 +124,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM9EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM1_BRK_TIM9Handler,
 	}
 
@@ -137,7 +137,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM10EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM1_UP_TIM10Handler,
 	}
 
@@ -150,7 +150,7 @@ var (
 				EnableFlag:     stm32.RCC_APB2ENR_TIM11EN,
 			},
 		},
-		Clock:        clock.PCLK2,
+		Clock:        &clock.PCLK2,
 		NewInterrupt: newIRQ_TIM1_TRG_COM_TIM11Handler,
 	}
 
@@ -163,7 +163,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM12EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM8_BRK_TIM12Handler,
 	}
 
@@ -176,7 +176,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM13EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM8_UP_TIM13Handler,
 	}
 
@@ -189,7 +189,7 @@ var (
 				EnableFlag:     stm32.RCC_APB1ENR_TIM14EN,
 			},
 		},
-		Clock:        clock.PCLK1,
+		Clock:        &clock.PCLK1,
 		NewInterrupt: newIRQ_TIM8_TRG_COM_TIM14Handler,
 	}
 )

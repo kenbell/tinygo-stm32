@@ -7,4 +7,5 @@ import "runtime/volatile"
 type Attributes struct {
 	ClockEnableRegister *volatile.Register32
 	ClockEnableFlag     uint32
+	DefaultFrequency    int64
 }

@@ -16,11 +16,6 @@ const (
 	StateBypass State = stm32.RCC_CR_HSEBYP | stm32.RCC_CR_HSEON
 )
 
-var (
-	// HSE gives public access to the oscillator
-	HSE = &Oscillator{}
-)
-
 // Config is the configuration of the LSE oscillator
 type Config struct {
 	State     State
@@ -39,6 +34,8 @@ func (o *Oscillator) Configure(cfg *Config) {
 
 	if cfg.Frequency != 0 {
 		o.ClockFrequency = cfg.Frequency
+	} else {
+		o.ClockFrequency = o.Attributes.DefaultFrequency
 	}
 
 	waitReady := true
@@ -60,7 +57,7 @@ func (o *Oscillator) Configure(cfg *Config) {
 }
 
 func (o *Oscillator) Frequency() int64 {
-	return o.Frequency()
+	return o.ClockFrequency
 }
 
 func (o *Oscillator) TimerMultiplier() uint32 {
