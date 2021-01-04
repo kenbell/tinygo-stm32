@@ -46,9 +46,9 @@ func (o *Oscillator) Configure(cfg *Config) {
 	}
 
 	// Disable Backup domain protection
-	if !stm32.PWR.CR1.HasBits(stm32.PWR_CR1_DBP) {
-		stm32.PWR.CR1.SetBits(stm32.PWR_CR1_DBP)
-		for !stm32.PWR.CR1.HasBits(stm32.PWR_CR1_DBP) {
+	if !o.Attributes.DisableBackupDomainRegister.HasBits(o.Attributes.DisableBackupDomainFlag) {
+		o.Attributes.DisableBackupDomainRegister.SetBits(o.Attributes.DisableBackupDomainFlag)
+		for !o.Attributes.DisableBackupDomainRegister.HasBits(o.Attributes.DisableBackupDomainFlag) {
 		}
 	}
 

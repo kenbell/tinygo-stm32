@@ -1,4 +1,4 @@
-// +build stm32f7x2
+// +build stm32f10x
 
 package clock
 

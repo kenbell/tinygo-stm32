@@ -4,24 +4,21 @@ package uart
 
 import (
 	"device/stm32"
+	"machine"
 	"runtime/interrupt"
 
 	"github.com/kenbell/tinygo-stm32/clock"
 	"github.com/kenbell/tinygo-stm32/nvic"
-	"github.com/kenbell/tinygo-stm32/port"
 )
 
 var (
 	LPUART1 = &UART{
 		USART_Type: stm32.LPUART1,
 		Attributes: &Attributes{
-			TxPort:            port.GPIOG,
-			TxPin:             7,
-			TxPinAltFunc:      8,
+			PinMapping: []PinMapping{
+				{TxPin: machine.PG7, TxPinAltFunc: 8, RxPin: machine.PG8, RxPinAltFunc: 8},
+			},
 			TxReg:             &stm32.LPUART1.TDR,
-			RxPort:            port.GPIOG,
-			RxPin:             8,
-			RxPinAltFunc:      8,
 			RxReg:             &stm32.LPUART1.RDR,
 			BaudMultiplier:    256,
 			StatusReg:         &stm32.LPUART1.ISR,

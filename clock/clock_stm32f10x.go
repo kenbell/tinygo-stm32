@@ -1,4 +1,4 @@
-// +build stm32f7x2
+// +build stm32f10x
 
 package clock
 
@@ -9,9 +9,9 @@ import (
 type SYSCLKSource uint32
 
 const (
-	SYSCLKSourceHSI SYSCLKSource = stm32.RCC_CFGR_SW_HSI
-	SYSCLKSourceHSE              = stm32.RCC_CFGR_SW_HSE
-	SYSCLKSourcePLL              = stm32.RCC_CFGR_SW_PLL
+	SYSCLKSourceHSI SYSCLKSource = 0
+	SYSCLKSourceHSE              = 1
+	SYSCLKSourcePLL              = 2
 )
 
 // Work-around SVD definitions to create useful constants

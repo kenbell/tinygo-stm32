@@ -25,15 +25,11 @@ const (
 
 // Expose all the clocks from this package for convenience of consumption
 var (
-	SYSCLK = BaseClock{ClockTimerMultiplier: 1}
-	HCLK   = BaseClock{ClockTimerMultiplier: 1}
-	PCLK1  = BaseClock{ClockTimerMultiplier: 1}
-	PCLK2  = BaseClock{ClockTimerMultiplier: 1}
-	HSI    = &hsi.HSI
-	LSI    = &lsi.LSI
-	LSE    = &lse.LSE
-	MSI    = &msi.MSI
-	HSI48  = &hsi48.HSI48
+	HSI   = &hsi.HSI
+	LSI   = &lsi.LSI
+	LSE   = &lse.LSE
+	MSI   = &msi.MSI
+	HSI48 = &hsi48.HSI48
 )
 
 // Lookup table to convert from symbolic clock source to the actual clock

@@ -9,8 +9,14 @@ import (
 )
 
 type Config struct {
+	// BaudRate is the desired baud rate of the UART
 	BaudRate uint32
-	Clock    clock.Source
+
+	// Clock providing the clock signal to the UART
+	Clock clock.Source
+
+	//  PinMapping to use, typically 0 (most chips), or optionally 1 (some chips)
+	PinMapping uint32
 }
 
 // UART represents the family of UART devices (USART, LPUART, UART)
@@ -34,8 +40,7 @@ func (uart *UART) Configure(config *Config) {
 	uart.configClock(config.Clock)
 
 	// Configure pins (enable, set mode, etc)
-	uart.configRxPin()
-	uart.configTxPin()
+	uart.configPins(config.PinMapping)
 
 	// Set baud rate
 	uart.SetBaudRate(config.BaudRate)
@@ -96,27 +101,14 @@ func (uart *UART) configClock(src clock.Source) {
 	uart.Clock = uart.Attributes.Clock.Apply(src)
 }
 
-func (uart *UART) configTxPin() {
-	port := uart.Attributes.TxPort
-	pos := uart.Attributes.TxPin * 2
+func (uart *UART) configPins(pinMapping uint32) {
+	mapping := &uart.Attributes.PinMapping[pinMapping]
 
-	port.EnableClock()
+	mapping.TxPin.ConfigureAltFunc(
+		uart.Attributes.TxPinConfig,
+		mapping.TxPinAltFunc)
 
-	port.MODER.ReplaceBits(stm32.GPIOModeOutputAltFunc, 0x3, pos)
-	port.OSPEEDR.ReplaceBits(stm32.GPIOSpeedHigh, 0x3, pos)
-	port.PUPDR.ReplaceBits(stm32.GPIOPUPDRPullUp, 0x3, pos)
-
-	port.SetAltFunc(uart.Attributes.TxPin, uart.Attributes.TxPinAltFunc)
-}
-
-func (uart *UART) configRxPin() {
-	port := uart.Attributes.RxPort
-	pos := uart.Attributes.RxPin * 2
-
-	port.EnableClock()
-
-	port.MODER.ReplaceBits(stm32.GPIOModeOutputAltFunc, 0x3, pos)
-	port.PUPDR.ReplaceBits(stm32.GPIOPUPDRFloating, 0x3, pos)
-
-	port.SetAltFunc(uart.Attributes.RxPin, uart.Attributes.RxPinAltFunc)
+	mapping.RxPin.ConfigureAltFunc(
+		uart.Attributes.RxPinConfig,
+		mapping.RxPinAltFunc)
 }

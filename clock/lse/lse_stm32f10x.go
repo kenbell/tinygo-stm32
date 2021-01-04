@@ -1,4 +1,4 @@
-// +build stm32f7x2
+// +build stm32f10x
 
 package lse
 
@@ -10,8 +10,8 @@ var (
 			ClockEnableRegister:         &stm32.RCC.APB1ENR,
 			ClockEnableFlag:             stm32.RCC_APB1ENR_PWREN,
 			DefaultFrequency:            32768, // 32.768 KHz
-			DisableBackupDomainRegister: &stm32.PWR.CR1,
-			DisableBackupDomainFlag:     stm32.PWR_CR1_DBP,
+			DisableBackupDomainRegister: &stm32.PWR.CR,
+			DisableBackupDomainFlag:     stm32.PWR_CR_DBP,
 		},
 	}
 )

@@ -60,7 +60,7 @@ func (b *BasicBoard) initClocks(oscCfg *clock.OscillatorConfig, clkCfg *clock.Co
 	power.EnableOverdrive()
 
 	oscCfg.Apply()
-	clkCfg.Apply(7)
+	clkCfg.Apply()
 }
 
 func (b *BasicBoard) SleepTicks(d int64) {

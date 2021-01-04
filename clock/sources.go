@@ -1,5 +1,12 @@
 package clock
 
+var (
+	SYSCLK = BaseClock{ClockTimerMultiplier: 1}
+	HCLK   = BaseClock{ClockTimerMultiplier: 1}
+	PCLK1  = BaseClock{ClockTimerMultiplier: 1}
+	PCLK2  = BaseClock{ClockTimerMultiplier: 1}
+)
+
 type Source uint8
 
 // PeripheralClock represents the clock that drives a peripheral
